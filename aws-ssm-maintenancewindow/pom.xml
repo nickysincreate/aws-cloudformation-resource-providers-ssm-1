@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
+<<<<<<< HEAD
     xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+=======
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+>>>>>>> Updated implementation of all handler
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>software.amazon.ssm.maintenancewindow</groupId>
@@ -28,6 +34,14 @@
     <dependencies>
         <!-- https://mvnrepository.com/artifact/software.amazon.cloudformation/aws-cloudformation-rpdk-java-plugin -->
         <dependency>
+<<<<<<< HEAD
+=======
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>ssm</artifactId>
+            <version>2.10.66</version>
+        </dependency>
+        <dependency>
+>>>>>>> Updated implementation of all handler
             <groupId>software.amazon.cloudformation</groupId>
             <artifactId>aws-cloudformation-rpdk-java-plugin</artifactId>
             <version>1.0.2</version>

@@ -113,6 +113,10 @@
         },
         "read": {
             "permissions": [
+<<<<<<< HEAD
+=======
+                "ssm:GetMaintenanceWindow",
+>>>>>>> Updated implementation of all handler
                 "ssm:DescribeMaintenanceWindow"
             ]
         }
