@@ -34,40 +34,4 @@ public class SimpleTypeValidator {
             return Optional.of(parameter);
         }
     }
-
-    /**
-     * Translate Resource Model Tags to Request Tags
-     */
-    public static Optional<List<Tag>> translateToRequestTags(final List<software.amazon.ssm.maintenancewindow.Tag> resourceModelTags) {
-
-        if (!CollectionUtils.isNullOrEmpty(resourceModelTags)) {
-            List<Tag> requestTags = resourceModelTags.stream()
-                    .collect(Collectors.mapping(entry ->
-                                    Tag.builder()
-                                            .key(entry.getKey())
-                                            .value(entry.getValue())
-                                            .build(),
-                            Collectors.toList()));
-            return Optional.of(requestTags);
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * Translate Request Tags to Resource Model Tags
-     */
-    public  static Optional<List<software.amazon.ssm.maintenancewindow.Tag>> translateToResourceModelTags(final List<Tag> requestTags) {
-
-        if (!CollectionUtils.isNullOrEmpty(requestTags)) {
-            List<software.amazon.ssm.maintenancewindow.Tag> resourceModelTags = requestTags.stream()
-                    .collect(Collectors.mapping(entry ->
-                                    software.amazon.ssm.maintenancewindow.Tag.builder()
-                                            .key(entry.key())
-                                            .value(entry.value())
-                                            .build(),
-                            Collectors.toList()));
-            return Optional.of(resourceModelTags);
-        }
-        return Optional.empty();
-    }
 }

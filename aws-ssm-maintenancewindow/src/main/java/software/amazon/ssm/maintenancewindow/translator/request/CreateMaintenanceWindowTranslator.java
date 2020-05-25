@@ -3,16 +3,19 @@ package software.amazon.ssm.maintenancewindow.translator.request;
 import software.amazon.awssdk.services.ssm.model.CreateMaintenanceWindowRequest;
 import software.amazon.ssm.maintenancewindow.ResourceModel;
 import software.amazon.ssm.maintenancewindow.util.SimpleTypeValidator;
+import software.amazon.ssm.maintenancewindow.translator.resourcemodel.ResourceModelPropertyTranslator;
 
 public class CreateMaintenanceWindowTranslator {
 
     private final SimpleTypeValidator simpleTypeValidator;
+    private final ResourceModelPropertyTranslator resourceModelPropertyTranslator;
 
     /**
      * Constructor that initializes all required fields.
      */
     public CreateMaintenanceWindowTranslator() {
         this.simpleTypeValidator = new SimpleTypeValidator();
+        this.resourceModelPropertyTranslator = new ResourceModelPropertyTranslator();
     }
 
     /**
@@ -20,8 +23,9 @@ public class CreateMaintenanceWindowTranslator {
      *
      * @param simpleTypeValidator Validator for simple data types.
      */
-    public CreateMaintenanceWindowTranslator(final SimpleTypeValidator simpleTypeValidator) {
+    public CreateMaintenanceWindowTranslator(final SimpleTypeValidator simpleTypeValidator, final ResourceModelPropertyTranslator resourceModelPropertyTranslator) {
         this.simpleTypeValidator = simpleTypeValidator;
+        this.resourceModelPropertyTranslator = resourceModelPropertyTranslator;
     }
 
     /**
@@ -49,7 +53,7 @@ public class CreateMaintenanceWindowTranslator {
         simpleTypeValidator.getValidatedString(model.getEndDate())
                 .ifPresent(createMaintenanceWindowRequestBuilder::endDate);
 
-        simpleTypeValidator.translateToRequestTags(model.getTags())
+        resourceModelPropertyTranslator.translateToRequestTags(model.getTags())
                 .ifPresent(createMaintenanceWindowRequestBuilder::tags);
 
         return createMaintenanceWindowRequestBuilder.build();

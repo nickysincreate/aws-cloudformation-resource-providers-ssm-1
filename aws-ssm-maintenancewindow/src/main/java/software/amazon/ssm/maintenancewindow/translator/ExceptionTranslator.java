@@ -45,7 +45,9 @@ public class ExceptionTranslator {
             return new CfnNotFoundException(serviceException);
         } else if (serviceException instanceof InternalServerErrorException) {
 
-            return new CfnServiceInternalErrorException(serviceException);
+            return new CfnServiceInternalErrorException(
+                    getClassNameWithoutRequestSuffix(request.getClass().getSimpleName()),
+                    serviceException);
         } else if (serviceException instanceof FeatureNotAvailableException
                 || serviceException instanceof TargetInUseException
                 || serviceException instanceof IdempotentParameterMismatchException){
@@ -53,10 +55,28 @@ public class ExceptionTranslator {
             return new CfnInvalidRequestException(request.toString(), serviceException);
         }else if (serviceException instanceof TooManyUpdatesException) {
 
-            return new CfnThrottlingException(serviceException);
+            return new CfnThrottlingException(getClassNameWithoutRequestSuffix(request.getClass().getSimpleName()),
+                    serviceException);
         } else {
             // in case of unknown/unexpected service exceptions, use a generic exception with the name of the failed operation
-            return new CfnGeneralServiceException(request.getClass().getSimpleName(), serviceException);
+            return new CfnGeneralServiceException(getClassNameWithoutRequestSuffix(request.getClass().getSimpleName()),
+                    serviceException);
         }
+    }
+
+    /**
+     * Removes suffix "Request" string from input class names.
+     *
+     * @param simpleSsmRequestClassName Name of SsmRequest class to remove "Request" suffix from.
+     * @return Request class name without "Request" in the end.
+     */
+    private String getClassNameWithoutRequestSuffix(final String simpleSsmRequestClassName) {
+        final String classNameSuffixToRemove = "Request";
+
+        if (simpleSsmRequestClassName.endsWith(classNameSuffixToRemove)) {
+            return simpleSsmRequestClassName.substring(0, simpleSsmRequestClassName.length() - classNameSuffixToRemove.length());
+        }
+
+        return simpleSsmRequestClassName;
     }
 }

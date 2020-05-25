@@ -64,7 +64,7 @@ public class DeleteHandler extends BaseHandler<CallbackContext> {
         try {
             proxy.injectCredentialsAndInvokeV2(deleteMaintenanceWindowRequest, SSM_CLIENT::deleteMaintenanceWindow);
             progressEvent.setStatus(OperationStatus.SUCCESS);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             final BaseHandlerException cfnException = exceptionTranslator
                     .translateFromServiceException(e, deleteMaintenanceWindowRequest);
 
