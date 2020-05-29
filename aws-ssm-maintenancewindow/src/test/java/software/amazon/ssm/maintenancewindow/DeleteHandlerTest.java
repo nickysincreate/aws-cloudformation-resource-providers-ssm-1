@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import software.amazon.ssm.maintenancewindow.translator.ExceptionTranslator;
-import software.amazon.awssdk.services.ssm.model.TooManyUpdatesException;
+import software.amazon.awssdk.services.ssm.model.InternalServerErrorException;
 import software.amazon.awssdk.services.ssm.model.DeleteMaintenanceWindowRequest;
 import software.amazon.awssdk.services.ssm.model.DeleteMaintenanceWindowResponse;
 import software.amazon.cloudformation.exceptions.CfnThrottlingException;
@@ -119,7 +119,7 @@ public class DeleteHandlerTest {
                 .desiredResourceState(model)
                 .build();
 
-        final TooManyUpdatesException serviceException = TooManyUpdatesException.builder().build();
+        final InternalServerErrorException serviceException = InternalServerErrorException.builder().build();
 
         when(
                 proxy.injectCredentialsAndInvokeV2(

@@ -2,7 +2,7 @@ package software.amazon.ssm.maintenancewindow;
 
 import org.junit.jupiter.api.Assertions;
 import org.mockito.ArgumentMatchers;
-import software.amazon.awssdk.services.ssm.model.TooManyUpdatesException;
+import software.amazon.awssdk.services.ssm.model.InternalServerErrorException;
 import software.amazon.awssdk.services.ssm.model.UpdateMaintenanceWindowRequest;
 import software.amazon.awssdk.services.ssm.model.UpdateMaintenanceWindowResponse;
 import software.amazon.cloudformation.exceptions.CfnThrottlingException;
@@ -172,7 +172,7 @@ public class UpdateHandlerTest {
         when(updateMaintenanceWindowTranslator.resourceModelToRequest(desiredModel))
                 .thenReturn(expectedUpdateMaintenanceWindowRequest);
 
-        final TooManyUpdatesException serviceException = TooManyUpdatesException.builder().build();
+        final InternalServerErrorException serviceException = InternalServerErrorException.builder().build();
 
         when(
                 proxy.injectCredentialsAndInvokeV2(
